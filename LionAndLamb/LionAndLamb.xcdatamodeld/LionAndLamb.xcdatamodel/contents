@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="LALTopic" representedClassName="LALTopic" syncable="YES">
+        <attribute name="order" attributeType="Integer 16" minValueString="0" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="subtitle" attributeType="String" minValueString="1" syncable="YES"/>
+        <attribute name="title" attributeType="String" minValueString="1" syncable="YES"/>
+        <attribute name="totalWords" attributeType="Integer 32" minValueString="1" defaultValueString="1" syncable="YES"/>
+        <attribute name="uniqueWords" attributeType="Integer 16" minValueString="1" defaultValueString="1" syncable="YES"/>
+        <attribute name="versionOrder" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <relationship name="nextTopic" maxCount="1" deletionRule="Deny" destinationEntity="LALTopic" inverseName="previousTopic" inverseEntity="LALTopic" syncable="YES"/>
+        <relationship name="previousTopic" maxCount="1" deletionRule="Deny" destinationEntity="LALTopic" inverseName="nextTopic" inverseEntity="LALTopic" syncable="YES"/>
+        <relationship name="version" maxCount="1" deletionRule="Deny" destinationEntity="LALVersion" inverseName="topics" inverseEntity="LALVersion" syncable="YES"/>
+        <relationship name="words" toMany="YES" deletionRule="Deny" destinationEntity="LALWord" inverseName="topic" inverseEntity="LALWord" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="order"/>
+                <index value="versionOrder"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <entity name="LALVersion" representedClassName="LALVersion" syncable="YES">
+        <attribute name="order" attributeType="Integer 16" minValueString="0" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="subtitle" attributeType="String" minValueString="1" syncable="YES"/>
+        <attribute name="title" attributeType="String" minValueString="1" syncable="YES"/>
+        <relationship name="topics" toMany="YES" deletionRule="Deny" destinationEntity="LALTopic" inverseName="version" inverseEntity="LALTopic" syncable="YES"/>
+    </entity>
+    <entity name="LALWord" representedClassName="LALWord" syncable="YES">
+        <attribute name="rank" attributeType="Integer 16" minValueString="1" defaultValueString="1" syncable="YES"/>
+        <attribute name="stopword" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="title" attributeType="String" minValueString="1" indexed="YES" syncable="YES"/>
+        <attribute name="total" attributeType="Integer 32" minValueString="1" defaultValueString="1" indexed="YES" syncable="YES"/>
+        <relationship name="topic" maxCount="1" deletionRule="Deny" destinationEntity="LALTopic" inverseName="words" inverseEntity="LALTopic" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="total"/>
+                <index value="stopword"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <elements>
+        <element name="LALTopic" positionX="2806" positionY="503" width="128" height="193"/>
+        <element name="LALWord" positionX="3024" positionY="504" width="128" height="120"/>
+        <element name="LALVersion" positionX="2592" positionY="504" width="128" height="103"/>
+    </elements>
+</model>
